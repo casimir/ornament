@@ -1,0 +1,23 @@
+[package]
+name = "ornament"
+version = "0.1.0"
+authors = ["Martin Chaine <martin@casimir.me>"]
+edition = "2018"
+description = "A helper to create decorated text."
+repository = "https://github.com/casimir/ornament"
+readme = "README.md"
+keywords = ["text", "richtext", "highlighting", "serde"]
+categories = ["data-structures", "value-formatting", "encoding"]
+license = "MIT"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"], optional = true }
+serde_json = { version = "1.0", optional = true }
+
+[features]
+serde_support = ["serde"]
+json = ["serde_support", "serde_json"]
+
+[[example]]
+name = "json"
+required-features = ["json"]
