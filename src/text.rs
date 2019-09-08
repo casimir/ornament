@@ -36,7 +36,7 @@ pub struct Text<F>(Vec<TextFragment<F>>);
 impl<F> Text<F> {
     /// Returns the length of the underlying text, without decorations, in bytes.
     pub fn text_len(&self) -> usize {
-        self.0.iter().fold(0, |acc, x| acc + x.text.len())
+        self.iter().fold(0, |acc, x| acc + x.text.len())
     }
 
     /// Converts the decorated text into rich text, using `decorator` to handle the different faces.
@@ -44,16 +44,30 @@ impl<F> Text<F> {
     where
         G: Fn(&TextFragment<F>) -> String,
     {
-        self.0
-            .iter()
-            .map(decorator)
-            .collect::<Vec<String>>()
-            .join("")
+        self.iter().map(decorator).collect::<Vec<String>>().join("")
     }
 
     /// Converts the decorated text into plain text, stripping all decorations.
     pub fn plain(&self) -> String {
-        self.0.iter().fold(String::new(), |acc, x| acc + &x.text)
+        self.iter().fold(String::new(), |acc, x| acc + &x.text)
+    }
+}
+
+pub type TextIterator<'a, F> = std::slice::Iter<'a, TextFragment<F>>;
+
+impl<F> Text<F> {
+    /// Returns an iterator over the text.
+    pub fn iter(&self) -> TextIterator<'_, F> {
+        self.0.iter()
+    }
+}
+
+impl<'a, F> IntoIterator for &'a Text<F> {
+    type Item = &'a TextFragment<F>;
+    type IntoIter = TextIterator<'a, F>;
+
+    fn into_iter(self) -> TextIterator<'a, F> {
+        self.iter()
     }
 }
 
