@@ -71,7 +71,7 @@ use std::ops::Range;
 extern crate serde;
 
 use decorations::Decorations;
-pub use text::{Text, TextFragment};
+pub use text::{Text, TextFragment, TextIterator};
 
 /// A helper type to build a [`Text`] instance.
 ///
