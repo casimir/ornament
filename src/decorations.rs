@@ -124,7 +124,7 @@ where
         let mut len = 0;
         loop {
             len += &self.fragments[idx].len();
-            if len > offset {
+            if len >= offset {
                 break;
             }
             idx += 1;

@@ -252,4 +252,10 @@ mod tests {
             "This *weird *|tiny|* error* is important!"
         );
     }
+
+    #[test]
+    fn decorate_whole() {
+        let text = Decorator::new().append(" ").set(Face::Star, 0..1).build();
+        assert_eq!(text.render(decorator), "* *");
+    }
 }
